@@ -8,16 +8,22 @@ class Button extends React.Component {
   //   const text = this.context === 'english' ? 'Submit' : 'Voorleggen';
   //   return <div className="ui button primary">{text}</div>;
   // }
+  renderSubmit(language) {
+    return language === 'english' ? 'Submit' : 'Voorleggen';
+  }
+  renderButton(color) {
+    return (
+      <button className={`ui button ${color}`}>
+        <LanguageContext.Consumer>
+          {({ language }) => this.renderSubmit(language)}
+        </LanguageContext.Consumer>
+      </button>
+    );
+  }
   render() {
     return (
       <ColorContext.Consumer>
-        {color => (
-          <button className={`ui button ${color}`}>
-            <LanguageContext.Consumer>
-              {value => (value === 'english' ? 'Submit' : 'Voorleggen')}
-            </LanguageContext.Consumer>
-          </button>
-        )}
+        {color => this.renderButton(color)}
       </ColorContext.Consumer>
     );
   }
